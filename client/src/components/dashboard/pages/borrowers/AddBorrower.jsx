@@ -54,6 +54,9 @@ const AddBorrower = ({ setAuth }) => {
         username,
       };
 
+      //console.log(body)
+      console.log(body)
+
       const response = await fetch('http://localhost:8000/addClient', {
         method: 'POST',
         headers: {

@@ -20,7 +20,8 @@ app.post('/login', async (req, res) => {
   try {
     const { username, password } = req.body;
 
-    // console.log(req.body);
+    console.log(req.body);
+    
     const admin = await pool.query(
       `SELECT * FROM admins WHERE username = '${username}'`
     );
@@ -56,6 +57,9 @@ app.post('/addAdmin', async (req, res) => {
       username,
       password,
     } = req.body;
+
+    //checking recieved body from frontend
+    console.log("request body: ",req.body);
 
     const admin = await pool.query(
       `SELECT * FROM admins WHERE username = '${username}'`
@@ -114,8 +118,16 @@ app.post('/register', async (req, res) => {
     const newAdmin = await pool.query(
       `INSERT INTO admins (firstname, lastname, contactnumber, address, email, password, username) VALUES ('${firstname}', '${lastname}', ${contactNumber}, '${address}', '${email}', '${bcryptPassword}', '${username}') RETURNING *`
     );
+    
+    // checking query in the logs
+    console.log('Executing SQL:', `INSERT INTO admins (firstname, lastname, contactnumber, address, email, password, username) 
+      VALUES ('${firstname}', '${lastname}', ${contactNumber ? `'${contactNumber}'` : 'NULL'}, '${address}', '${email}', '${bcryptPassword}', '${username}')`);
+
 
     const token = generateJWT(newAdmin.rows[0]);
+
+    //log token to console
+    console.log("token", token);
 
     res.json({ token });
   } catch (error) {

@@ -51,7 +51,7 @@ function App() {
                 exact
                 path='/register'
                 element={
-                  isAuthenticated ? (
+                  !isAuthenticated ? (
                     <Register setAuth={setAuth} />
                   ) : (
                     <Navigate to='/home' />

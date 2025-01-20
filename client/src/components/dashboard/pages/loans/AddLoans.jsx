@@ -93,6 +93,8 @@ const AddLoans = ({ setAuth }) => {
         maturity_date,
       };
 
+      console.log(body);
+
       const response = await fetch(`http://localhost:8000/loans`, {
         method: 'POST',
         headers: {

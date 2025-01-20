@@ -7,6 +7,7 @@ const Register = ({ setAuth }) => {
   const [inputs, setInputs] = useState({
     firstname: '',
     lastname: '',
+    contactNumber: '', // was missing
     email: '',
     address: '',
     username: '',
@@ -27,8 +28,9 @@ const Register = ({ setAuth }) => {
     setInputs({ ...inputs, [e.target.name]: e.target.value });
   };
 
-  const onSubmit = async (e) => {
-    e.preventDefault();
+  const onSubmit = async (e) => {    
+    e.preventDefault();    
+
     try {
       const body = {
         firstname,
@@ -40,6 +42,9 @@ const Register = ({ setAuth }) => {
         password,
       };
 
+      //check form data
+    console.log("form data", body);
+
       const response = await fetch('http://localhost:8000/register', {
         method: 'POST',
         headers: {
@@ -47,20 +52,30 @@ const Register = ({ setAuth }) => {
         },
         body: JSON.stringify(body),
       });
+      
+      //check response from server
+      console.log("Raw response:", response); 
 
       const parseRes = await response.json();
 
-      // if (parseRes.token) {
-      //   localStorage.setItem('token', parseRes.token);
-      //   console.log(parseRes.token);
-      //   setAuth(true);
-      // } else {
-      //   setAuth(false);
-      //   console.log('Something wrong');
-      // }
+      //check response from server
+      console.log("Parsed response:", parseRes); 
+
+      // uncommented this block
+
+      if (parseRes.token) {
+        localStorage.setItem('token', parseRes.token);
+        console.log(parseRes.token);
+        setAuth(true);
+      } else {
+        setAuth(false);
+        console.log('Something wrong');
+      }
     } catch (error) {
       console.log(error.message);
     }
+
+
   };
   return (
     <div className='flex flex-col h-[750px] w-[620px] border rounded-md shadow-md  mx-auto my-20 justify-center flex-wrap border-t-4 border-t-red-500 '>

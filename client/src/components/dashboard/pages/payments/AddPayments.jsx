@@ -59,6 +59,8 @@ const AddPayments = ({ loanId, balance, clientId }) => {
         loan_id,
       };
 
+      console.log(body);
+
       const response = await fetch(`http://localhost:8000/payments/${loanId}`, {
         method: 'POST',
         headers: {

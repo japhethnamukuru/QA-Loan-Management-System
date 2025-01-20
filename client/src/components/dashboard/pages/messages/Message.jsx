@@ -42,10 +42,10 @@ export default function Message({ email }) {
 
     emailjs
       .sendForm(
-        'service_2kyejr4',
-        'Loan_Approval',
+        'service_6ya7ug8',
+        'template_42j8dsc',
         e.target,
-        'mDqAo3YVF6cq60oy7'
+        'psyh2lUD06KfINrVj'
       )
       .then(
         (result) => {
